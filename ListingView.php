@@ -182,4 +182,11 @@ class ListingView
         return json_encode($settings);
     }
 
+    /**
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
 }
