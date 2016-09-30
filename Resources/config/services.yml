@@ -26,7 +26,7 @@ services:
     listing.extension:
         class: PawelLen\DataTablesListing\Twig\ListingExtension
         arguments:
-            renderer: "@listing.not_initialized_renderer"
+            renderer: "@listing.renderer"
         tags:
             - { name: twig.extension }
 

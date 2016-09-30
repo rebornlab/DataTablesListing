@@ -38,23 +38,13 @@ class ListingExtension extends \Twig_Extension
 
 
     /**
-     * @param \Twig_Environment $environment
-     */
-    public function initRuntime(\Twig_Environment $environment)
-    {
-        $this->environment = $environment;
-        $this->renderer->initRuntime($environment);
-    }
-
-
-    /**
      * @return array
      */
     public function getFunctions()
     {
         return array(
-            'render_listing' => new \Twig_Function_Method($this, 'renderListing', array('is_safe' => array('html'))),
-            'render_listing_assets' => new \Twig_Function_Method($this, 'renderListingAssets', array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('app_render_listing', array($this, 'renderListing'), array('is_safe' => array('html'), 'needs_environment' => true)),
+            new \Twig_SimpleFunction('app_render_listing_assets', array($this, 'renderListingAssets'), array('is_safe' => array('html'), 'needs_environment' => true)),
         );
     }
 

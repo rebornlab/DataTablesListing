@@ -134,9 +134,7 @@ class ListingFactory
             'save_state'        => false,
             'defer_load'        => false
         ));
-        $optionsResolver->setNormalizers(array(
-            'page_length_menu' => $pageLengthMenuOptionsNormalizer
-        ));
+        $optionsResolver->setNormalizer('page_length_menu', $pageLengthMenuOptionsNormalizer);
 
         // Modify default options by ListingType:
         $type->setDefaultOptions($optionsResolver);
