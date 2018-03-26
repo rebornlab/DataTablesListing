@@ -27,7 +27,6 @@ class ListingExtension extends \Twig_Extension
     protected $renderer;
 
 
-
     /**
      * @param ListingRendererInterface $renderer
      */
@@ -53,20 +52,23 @@ class ListingExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('render_listing', array($this, 'renderListing'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('render_listing_assets', array($this, 'renderListingAssets'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('render_listing', array($this, 'renderListing'), array('is_safe' => array('html'), 'needs_environment' => true)),
+            new \Twig_SimpleFunction('render_listing_assets', array($this, 'renderListingAssets'), array('is_safe' => array('html'), 'needs_environment' => true)),
         );
     }
 
 
-
     /**
      * @param ListingView $listingView
+     *
      * @return string
      */
-    public function renderListing(ListingView $listingView, $template = null)
+    public function renderListing(\Twig_Environment $environment, ListingView $listingView, $template = null)
     {
-        $this->renderer->load($template ?: $listingView->getTemplateReference());
+        $this->initRuntime($environment);
+
+        $this->renderer->load($template ? : $listingView->getTemplateReference());
+
         return $this->renderer->renderListing($listingView);
     }
 
@@ -74,8 +76,10 @@ class ListingExtension extends \Twig_Extension
     /**
      * @return string
      */
-    public function renderListingAssets()
+    public function renderListingAssets(\Twig_Environment $environment)
     {
+        $this->initRuntime($environment);
+
         static $isRendered = false;
 
         if (!$isRendered) {
