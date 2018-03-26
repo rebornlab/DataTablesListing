@@ -48,15 +48,16 @@ class ListingExtension extends \Twig_Extension
 
 
     /**
-     * @return array
+     * @return array|\Twig_Function[]
      */
     public function getFunctions()
     {
         return array(
-            'render_listing' => new \Twig_Function_Method($this, 'renderListing', array('is_safe' => array('html'))),
-            'render_listing_assets' => new \Twig_Function_Method($this, 'renderListingAssets', array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('render_listing', array($this, 'renderListing'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('render_listing_assets', array($this, 'renderListingAssets'), array('is_safe' => array('html'))),
         );
     }
+
 
 
     /**
