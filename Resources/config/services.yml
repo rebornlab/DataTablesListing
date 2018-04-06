@@ -2,31 +2,31 @@ services:
     listing:
         class: PawelLen\DataTablesListing\ListingFactory
         arguments:
-            formFactory: "@form.factory"
-            registry: "@doctrine"
-            eventDispatcher: "@event_dispatcher"
-            renderer: "@listing.renderer"
-            defaultIdProperty: "%data_tables_listing.default_id_property%"
+            - "@form.factory"
+            - "@doctrine"
+            - "@event_dispatcher"
+            - "@listing.renderer"
+            - "%data_tables_listing.default_id_property%"
 
     listing.renderer:
         class: PawelLen\DataTablesListing\Renderer\ListingRenderer
         arguments:
-            router: "@router"
-            defaultTemplate: "%data_tables_listing.default_template%"
-            assetsConfiguration: "%data_tables_listing.include_assets%"
-            environment: "@twig"
+            - "@router"
+            - "%data_tables_listing.default_template%"
+            - "%data_tables_listing.include_assets%"
+            - "@twig"
 
     listing.not_initialized_renderer:
         class: PawelLen\DataTablesListing\Renderer\ListingRenderer
         arguments:
-            router: "@router"
-            defaultTemplate: "%data_tables_listing.default_template%"
-            assetsConfiguration: "%data_tables_listing.include_assets%"
+            - "@router"
+            - "%data_tables_listing.default_template%"
+            - "%data_tables_listing.include_assets%"
 
     listing.extension:
         class: PawelLen\DataTablesListing\Twig\ListingExtension
         arguments:
-            renderer: "@listing.not_initialized_renderer"
+            - "@listing.not_initialized_renderer"
         tags:
             - { name: twig.extension }
 
